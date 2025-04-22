@@ -1,14 +1,14 @@
-DropdownButtonFormField<RequirementType>(
-  value: selectedType,
+DropdownButtonFormField<TipoRequisito>(
+  value: tipoSelecionado,
   decoration: const InputDecoration(
     labelText: 'Tipo de Requisito',
     prefixIcon: Icon(Icons.category),
   ),
-  items: RequirementType.values
-      .map((type) => DropdownMenuItem(
-            value: type,
-            child: Text(type.label),
+  items: TipoRequisito.values
+      .map((tipo) => DropdownMenuItem(
+            value: tipo,
+            child: Text(tipo.descricao),
           ))
       .toList(),
-  onChanged: (type) => setState(() => selectedType = type!),
+  onChanged: (tipo) => setState(() => tipoSelecionado = tipo!),
 ),
