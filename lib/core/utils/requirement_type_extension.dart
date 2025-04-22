@@ -7,8 +7,6 @@ extension RequirementTypeExtension on RequirementType {
         return 'Não Funcional';
       case RequirementType.regraNegocio:
         return 'Regra de Negócio';
-      default:
-        return '';
     }
   }
 }
