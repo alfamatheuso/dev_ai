@@ -5,14 +5,6 @@ import '../model/requirement_model.dart';
 class RequirementRepository {
   static const String storageKey = 'requirements';
 
-  Future<void> saveRequirement(RequirementModel requirement) async {
-    final prefs = await SharedPreferences.getInstance();
-    final requirements = await getRequirements();
-    requirements.add(requirement);
-    final jsonList = requirements.map((r) => r.toJson()).toList();
-    await prefs.setString(storageKey, jsonEncode(jsonList));
-  }
-
   Future<List<RequirementModel>> getRequirements() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(storageKey);
@@ -21,13 +13,22 @@ class RequirementRepository {
     return jsonData.map((json) => RequirementModel.fromJson(json)).toList();
   }
 
-  Future<void> updateRequirement(RequirementModel updated) async {
+  Future<void> saveRequirement(RequirementModel requirement) async {
     final prefs = await SharedPreferences.getInstance();
     final requirements = await getRequirements();
-    final index = requirements.indexWhere((r) => r.id == updated.id);
+    requirements.add(requirement);
+    final jsonList = requirements.map((r) => r.toJson()).toList();
+    await prefs.setString(storageKey, jsonEncode(jsonList));
+  }
+
+  Future<void> updateRequirement(RequirementModel updatedRequirement) async {
+    final prefs = await SharedPreferences.getInstance();
+    final requirements = await getRequirements();
+    final index = requirements.indexWhere((r) => r.id == updatedRequirement.id);
     if (index >= 0) {
-      requirements[index] = updated;
-      await prefs.setString(storageKey, jsonEncode(requirements));
+      requirements[index] = updatedRequirement;
+      final jsonList = requirements.map((r) => r.toJson()).toList();
+      await prefs.setString(storageKey, jsonEncode(jsonList));
     }
   }
 
@@ -35,6 +36,7 @@ class RequirementRepository {
     final prefs = await SharedPreferences.getInstance();
     final requirements = await getRequirements();
     requirements.removeWhere((r) => r.id == id);
-    await prefs.setString(storageKey, jsonEncode(requirements));
+    final jsonList = requirements.map((r) => r.toJson()).toList();
+    await prefs.setString(storageKey, jsonEncode(jsonList));
   }
 }
