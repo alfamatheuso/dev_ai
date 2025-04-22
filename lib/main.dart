@@ -1,18 +1,8 @@
-void main() {
-  runApp(MyApp());
-}
+import 'package:flutter/material.dart';
+import 'app.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Software Analyzer',
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
-        fontFamily: 'Roboto',
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: AnalyzerPage(),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const MyApp());
 }
